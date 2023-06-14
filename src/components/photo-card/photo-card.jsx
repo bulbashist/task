@@ -6,12 +6,23 @@ import {
   UpperPanel,
   ActionButton,
   LowerPanel,
+  ImageLoading,
 } from "./styles";
 import { likePhoto } from "../../store/photos/photos";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export const PhotoCard = ({ photo }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const size = useSelector((state) => state.filters.size);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = size ? photo.src[size] : photo.src.original;
+    img.onload = () => setIsLoaded(true);
+  }, [photo, size]);
 
   return (
     <ImageWrapper
@@ -21,7 +32,11 @@ export const PhotoCard = ({ photo }) => {
         aspectRatio: photo.width / photo.height,
       }}
     >
-      <Img src={size ? photo.src[size] : photo.src.original} alt="" />
+      {isLoaded ? (
+        <Img src={size ? photo.src[size] : photo.src.original} alt="" />
+      ) : (
+        <ImageLoading />
+      )}
       <ControlFrame>
         <UpperPanel>
           <ActionButton>

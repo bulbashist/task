@@ -60,6 +60,31 @@ export const Img = styled.img`
   height: 100%;
 `;
 
+export const LoadingAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  0% {
+    transform: rotate(360deg);
+  }
+`;
+
+export const ImageLoading = styled.div`
+  position: relative;
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  border-radius: 50%;
+  border: 5px dotted pink;
+
+  animation: ${LoadingAnimation} 2s linear infinite;
+`;
+
 export const ImageWrapper = styled.div`
   position: relative;
 `;

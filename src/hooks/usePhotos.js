@@ -8,7 +8,7 @@ export const usePhotos = (searchQuery = " ") => {
   const { orientation, avg_color } = useSelector((state) => state.filters);
 
   const dispatch = useDispatch();
-  if (!lib) {
+  if (!lib || lib?.photos.length === 0) {
     dispatch(setPhotos(searchQuery));
     return [];
   }
