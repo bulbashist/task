@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  height: 101vh;
 }
 
 .App-logo {
@@ -35,4 +35,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.uyikyutuik {
+  color: rgb(47, 42, 42);
 }
