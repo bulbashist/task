@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 const Navigation = ({ isFixed = true }) => {
   return (
     <Wrapper fixed={isFixed}>
-      <Link to="/">
-        <svg width="130" height="50" viewBox="0 0 130.318 50">
+      <Link to="/" className="link">
+        <svg viewBox="0 0 130 50" className="logo">
           <g transform="translate(-3894 2762)">
             <rect
               width="50"

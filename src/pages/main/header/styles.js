@@ -12,6 +12,8 @@ export const Wrapper = styled.header`
   width: 100%;
   box-sizing: border-box;
 
+  background-color: #bababa;
+
   /* &:after { */
   /* background: black; */
   /* opacity: 0.5; */
@@ -19,13 +21,20 @@ export const Wrapper = styled.header`
 `;
 
 export const ContentWrapper = styled.div`
-  /* align-self: flex-end; */
+  @media screen and (min-width: 1080px) {
+    width: 630px;
+  }
+
+  @media screen and (max-width: 1079px) {
+    width: 80%;
+  }
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  width: 630px;
+
   margin: 0 auto;
   padding-top: 50px;
 `;
@@ -41,9 +50,23 @@ export const Background = styled.img`
 `;
 
 export const Headline = styled.h2`
-  font-size: 33px;
+  @media screen and (min-width: 1080px) {
+    font-size: 33px;
+    line-height: 40px;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1079px) {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
   font-weight: 600;
-  line-height: 40px;
+
   letter-spacing: -0.02em;
 
   text-align: left;
@@ -55,6 +78,7 @@ export const SearchHints = styled.ul`
   flex-direction: row;
   align-items: center;
   list-style-type: none;
+  flex-wrap: wrap;
 
   li {
     height: 100%;
@@ -62,8 +86,21 @@ export const SearchHints = styled.ul`
 
   li a,
   span {
-    font-size: 16px;
-    line-height: 26px;
+    @media screen and (min-width: 1080px) {
+      font-size: 16px;
+      line-height: 26px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1079px) {
+      font-size: 14px;
+      line-height: 26px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+      line-height: 26px;
+    }
+
     font-weight: 600;
     color: white;
   }

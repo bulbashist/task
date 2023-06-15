@@ -24,6 +24,7 @@ const cb = async (searchQuery = " ", { getState }) => {
     link = `https://api.pexels.com/v1/search?query=${searchQuery}&page=1&per_page=10`;
   }
 
+  // return Promise.reject();
   if (!link) return Promise.reject("no more photos");
 
   if (lib) {
@@ -92,10 +93,14 @@ const slice = createSlice({
 
         return state.map((lib) => {
           if (lib.category === action.payload.category) {
+            const photos = action.payload.photos.filter(
+              (photo) => !lib.photos.some((ph) => ph.id === photo.id)
+            );
+
             return {
               ...lib,
               next_page: action.payload.next_page,
-              photos: [...lib.photos, ...action.payload.photos],
+              photos: [...lib.photos, ...photos],
             };
           } else return lib;
         });

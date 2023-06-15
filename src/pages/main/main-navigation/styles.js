@@ -11,6 +11,10 @@ export const List = styled.ul`
 `;
 
 export const ListElement = styled.li`
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+
   display: flex;
   flex-direction: column;
   justify-content: center;

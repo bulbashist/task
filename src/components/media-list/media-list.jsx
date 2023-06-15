@@ -22,7 +22,7 @@ export const MediaGridList = ({ photos = [] }) => {
           </PhotoGrid>
         ))
       ) : (
-        <p>Ничего не надйено</p>
+        <p>Ничего не найдено</p>
       )}
     </div>
   );

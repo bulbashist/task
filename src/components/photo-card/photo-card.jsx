@@ -39,7 +39,7 @@ export const PhotoCard = ({ photo }) => {
       )}
       <ControlFrame>
         <UpperPanel>
-          <ActionButton>
+          <ActionButton className="photo-mark">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -59,7 +59,10 @@ export const PhotoCard = ({ photo }) => {
               ></path>
             </svg>
           </ActionButton>
-          <ActionButton onClick={() => dispatch(likePhoto(photo.id))}>
+          <ActionButton
+            className="photo-like"
+            onClick={() => dispatch(likePhoto(photo.id))}
+          >
             <svg
               viewBox="0 0 24 24"
               width="24"
@@ -83,20 +86,14 @@ export const PhotoCard = ({ photo }) => {
           </ActionButton>
         </UpperPanel>
         <LowerPanel>
-          <a href={photo.photographer_url} target="_blank" rel="noreferrer">
-            <div
-              src="/"
-              alt="av"
-              style={{
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                border: "1px solid white",
-                color: "white",
-                boxSizing: "border-box",
-              }}
-            />
-            <span>{photo.photographer}</span>
+          <a
+            href={photo.photographer_url}
+            target="_blank"
+            rel="noreferrer"
+            className="link"
+          >
+            <div className="avatar" />
+            <span className="name">{photo.photographer}</span>
           </a>
           <ActionButton
             onClick={() => {

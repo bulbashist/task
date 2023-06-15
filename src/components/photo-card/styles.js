@@ -17,19 +17,48 @@ export const UpperPanel = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   gap: 8px;
+
+  .photo-mark {
+    @media screen and (max-width: 480px) {
+      display: none;
+    }
+  }
 `;
 
 export const LowerPanel = styled.div`
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 
-  a {
+  .link {
     display: flex;
     align-items: center;
     gap: 8px;
 
-    span {
+    .avatar {
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid white;
+      color: white;
+      box-sizing: border-box;
+    }
+
+    .name {
+      @media screen and (min-width: 361px) and (max-width: 768px) {
+        font-size: 12px;
+        line-height: 20px;
+      }
+
       font-size: 16px;
       line-height: 26px;
       font-weight: 700;
@@ -90,6 +119,10 @@ export const ImageWrapper = styled.div`
 `;
 
 export const ControlFrame = styled.div`
+  @media screen and (max-width: 480px) {
+    padding: 5px;
+  }
+
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input, InputWrapper, SearchBtn } from "./styles";
+import { InputWrapper, SearchBtn } from "./styles";
 import { useNavigate, useParams } from "react-router";
 
 export const SearchBar = () => {
@@ -9,9 +9,10 @@ export const SearchBar = () => {
 
   return (
     <InputWrapper>
-      <Input
+      <input
         value={text}
         placeholder="Поиск бесплатных изображений"
+        className="input"
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -26,7 +27,6 @@ export const SearchBar = () => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          id="search-bd8e50c200501dff8322340f6275033b"
           width={25}
           height={25}
         >

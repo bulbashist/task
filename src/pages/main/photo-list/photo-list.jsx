@@ -1,4 +1,4 @@
-import { Headline, HeadlineWrapper } from "./styles";
+import { MainContent } from "./styles";
 import MediaGridList from "../../../components/media-list";
 import { useContinousLoad, usePhotos } from "../../../hooks";
 
@@ -8,18 +8,11 @@ export const PhotoList = () => {
   useContinousLoad();
 
   return (
-    <main
-      style={{
-        margin: "0 auto",
-        maxWidth: 1300,
-        padding: "0 30px",
-      }}
-    >
-      <HeadlineWrapper>
-        <Headline>Бесплатные стоковые фото</Headline>
-        <button>1</button>
-      </HeadlineWrapper>
+    <MainContent>
+      <div className="pre-gallery">
+        <h3 className="headline">Бесплатные стоковые фото</h3>
+      </div>
       <MediaGridList photos={photos} />
-    </main>
+    </MainContent>
   );
 };
