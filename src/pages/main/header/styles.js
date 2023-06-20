@@ -106,8 +106,8 @@ export const SearchHints = styled.ul`
     }
 
     @media screen and (max-width: 767px) {
-      font-size: 14px;
-      line-height: 26px;
+      font-size: 10px;
+      line-height: 18px;
     }
 
     font-weight: 600;

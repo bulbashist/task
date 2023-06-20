@@ -24,8 +24,8 @@ export const Header = () => {
     const number = 10000000 + Math.floor(Math.random() * 1000000);
     fetch(`https://api.pexels.com/v1/photos/${number}`, {
       headers: {
-        Authorization: "",
-        // "563492ad6f917000010000014640aabb4e9d420cbe1c0df7daf4c2bf",
+        Authorization:
+          "563492ad6f917000010000014640aabb4e9d420cbe1c0df7daf4c2bf",
       },
     })
       .then((res) => res.json())
@@ -47,7 +47,7 @@ export const Header = () => {
 
   useEffect(() => {
     const temp = new Set();
-    while (temp.size < 5) {
+    while (temp.size < 7) {
       temp.add(hints[Math.floor(Math.random() * hints.length)]);
     }
     setCurrHints([...temp]);

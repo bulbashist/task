@@ -17,6 +17,7 @@ import {
   IconHeart,
   IconHeartLiked,
 } from "../../assets/icons";
+import avatar from "../../assets/avatar.png";
 
 export const PhotoCard = ({ photo }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -62,7 +63,7 @@ export const PhotoCard = ({ photo }) => {
             rel="noreferrer"
             className="link"
           >
-            <div className="avatar" />
+            <img src={avatar} alt="" className="avatar" />
             <span className="name">{photo.photographer}</span>
           </a>
           <ActionButton

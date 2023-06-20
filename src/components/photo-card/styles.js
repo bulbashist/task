@@ -45,12 +45,13 @@ export const LowerPanel = styled.div`
         display: none;
       }
 
+      box-sizing: border-box;
       width: 40px;
       height: 40px;
-      border-radius: 50%;
       border: 1px solid white;
+      border-radius: 50%;
+      padding: 2px;
       color: white;
-      box-sizing: border-box;
     }
 
     .name {
