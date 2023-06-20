@@ -85,7 +85,7 @@ export const FilterPanel = () => {
               className={`hidden-panel__option ${
                 color === null ? "selected" : ""
               }`}
-              onclick={() => {
+              onClick={() => {
                 dispatch(changeFilters({ color: null }));
                 dispatch(setPhotos(search));
               }}
