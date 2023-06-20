@@ -14,6 +14,7 @@ import { useParams } from "react-router";
 import orientationOptions from "./orientation-options.json";
 import sizeOptions from "./size-options.json";
 import colorOptions from "./color-options.json";
+import { useRef } from "react";
 
 const data = [
   { category: "Фото", total: "· 140,4 тысяч" },
@@ -25,6 +26,7 @@ export const FilterPanel = () => {
   const { search } = useParams();
   const { orientation, size, color } = useSelector((state) => state.filters);
   const dispatch = useDispatch();
+  const colorInput = useRef(null);
 
   return (
     <Block>
@@ -96,21 +98,24 @@ export const FilterPanel = () => {
               type="color"
               defaultValue={color}
               className="color-input"
+              ref={colorInput}
               onBlur={(e) => {
                 dispatch(changeFilters({ color: e.currentTarget.value }));
                 dispatch(setPhotos(search));
               }}
             />
             <ColorList>
-              {colorOptions.map((color) => (
-                <ColorElement
-                  key={color}
-                  color={color}
-                  onClick={() => {
-                    dispatch(changeFilters({ color }));
-                    dispatch(setPhotos(search));
-                  }}
-                />
+              {colorOptions.map((color, i) => (
+                <li key={i}>
+                  <ColorElement
+                    color={color}
+                    onClick={() => {
+                      colorInput.current.value = color;
+                      dispatch(changeFilters({ color }));
+                      dispatch(setPhotos(search));
+                    }}
+                  />
+                </li>
               ))}
             </ColorList>
           </div>

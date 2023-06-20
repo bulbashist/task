@@ -12,7 +12,5 @@ export const usePhotos = (searchQuery = " ") => {
     return [];
   }
 
-  if (lib.category === " ") return lib.photos;
-
   return lib.photos;
 };

@@ -138,8 +138,9 @@ export const ColorList = styled.ul`
   list-style-type: none;
 `;
 
-export const ColorElement = styled.li`
+export const ColorElement = styled.button`
   background-color: ${(props) => props.color};
+  width: 100%;
   height: 20px;
   cursor: pointer;
 `;

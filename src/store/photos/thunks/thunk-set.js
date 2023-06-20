@@ -19,16 +19,22 @@ const setCallback = async (searchQuery = " ", { getState }) => {
     colorParam = `&color=${color.slice(1)}`;
   }
 
-  let link =
-    searchQuery === " "
-      ? "https://api.pexels.com/v1/curated?page=1&per_page=10"
-      : `https://api.pexels.com/v1/search?query=${searchQuery}&page=1&per_page=10`;
-  link = link + orientationParam + sizeParam + colorParam;
-
   const lib = getState().photos.find((lib) => lib.category === searchQuery);
 
   if (lib && lib.photos.length === 0 && !lib.next_page)
     return Promise.reject("No photos");
+
+  let link =
+    searchQuery === " "
+      ? "https://api.pexels.com/v1/curated?page=1&per_page=10"
+      : `https://api.pexels.com/v1/search?query=${searchQuery}&page=1&per_page=10`;
+
+  if (lib) {
+    link =
+      lib.category === " "
+        ? link
+        : link + orientationParam + sizeParam + colorParam;
+  }
 
   const res = await fetch(link, {
     headers: {
