@@ -76,11 +76,6 @@ export const ActionButton = styled.button`
   border-radius: 10px;
   background-color: white;
   cursor: pointer;
-
-  .liked-svg {
-    animation: ${LikePhotoAnimation} 0.5s cubic-bezier(0.1, -0.6, 0.2, 0)
-      infinite;
-  }
 `;
 
 export const Img = styled.img`

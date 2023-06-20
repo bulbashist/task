@@ -7,7 +7,6 @@ import PhotoList from "./photo-list";
 export const MainPage = () => {
   const [isFixed, setFixed] = useState(false);
 
-  /* check */
   useLayoutEffect(() => {
     const handler = (e) => {
       if (!isFixed && window.scrollY > 500) {

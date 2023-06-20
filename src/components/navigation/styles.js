@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-// 360 768 1440
-
 export const Wrapper = styled.header`
   ${(props) =>
     props.fixed
@@ -15,42 +13,14 @@ export const Wrapper = styled.header`
 
   @media screen and (max-width: 360px) {
     gap: 30px;
-
-    .link {
-      .logo {
-        width: 80px;
-      }
-    }
   }
 
   @media screen and (min-width: 361px) and (max-width: 768px) {
     gap: 50px;
-
-    .link {
-      .logo {
-        width: 100px;
-      }
-    }
   }
 
-  @media screen and (min-width: 769px) and (max-width: 1440px) {
+  @media screen and (min-width: 769px) {
     gap: 100px;
-
-    .link {
-      .logo {
-        width: 100px;
-      }
-    }
-  }
-
-  @media screen and (min-width: 1441px) {
-    gap: 100px;
-
-    .link {
-      .logo {
-        width: 130px;
-      }
-    }
   }
 
   display: flex;
@@ -70,9 +40,9 @@ export const Wrapper = styled.header`
 
 export const Background = styled.img`
   position: absolute;
-  z-index: -1;
   top: 0;
   left: 0;
+  z-index: -1;
   width: 100%;
   height: 100%;
   object-fit: cover;

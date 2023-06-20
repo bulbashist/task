@@ -37,12 +37,13 @@ export const InputWrapper = styled.div`
     font-weight: 600;
     outline: none;
   }
-`;
 
-export const SearchBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0 8px 8px 0;
-  cursor: pointer;
+  .submit-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+  }
 `;

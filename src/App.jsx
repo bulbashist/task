@@ -9,7 +9,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/category/:search" element={<CategoryPage />} />
         </Routes>

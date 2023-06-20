@@ -1,16 +1,26 @@
 import { Navigation } from "../../components/navigation/navigation";
 import SuggestionsPanel from "./suggestions-panel";
-import { Gallery } from "./gallery/gallery";
+import { HeaderMock, MainContent } from "./styles";
+import FilterPanel from "./filter-panel";
+import { useContinousLoad, usePhotos } from "../../hooks";
+import { useParams } from "react-router";
+import MediaGridList from "../../components/media-list";
 
 export const CategoryPage = () => {
+  const { search } = useParams();
+  const photos = usePhotos(search);
+
+  useContinousLoad(search);
+
   return (
     <>
       <Navigation />
-      <div style={{ height: "80px" }}></div>
-      <div style={{ padding: "0 80px" }}>
+      <HeaderMock />
+      <MainContent>
+        <FilterPanel />
         <SuggestionsPanel />
-        <Gallery />
-      </div>
+        <MediaGridList photos={photos} />
+      </MainContent>
     </>
   );
 };

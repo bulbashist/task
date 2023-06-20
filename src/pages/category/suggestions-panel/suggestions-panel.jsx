@@ -1,26 +1,18 @@
 import { List, Suggestion } from "./styles";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import hints from "../../../data/hints.json";
 
 export const SuggestionsPanel = () => {
-  useEffect(() => {}, []);
+  const [startNum, setStartNum] = useState(1);
 
-  const hints = [
-    "пейзаж",
-    "лес",
-    "цветы",
-    "пляж",
-    "гора",
-    "обои с видами природы",
-    "небо",
-    "фон",
-    "видео природы",
-    "видео природы",
-  ];
+  useEffect(() => {
+    setStartNum(Math.floor(Math.random() * 10));
+  }, []);
 
   return (
     <List>
-      {hints.map((hint, index) => (
+      {hints.slice(startNum, startNum + 8).map((hint, index) => (
         <Suggestion key={index}>
           <Link to={`/category/${hint}`} className="link">
             {hint}

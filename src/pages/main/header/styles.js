@@ -6,18 +6,13 @@ export const Wrapper = styled.header`
   flex-direction: column;
   justify-content: center;
   position: relative;
-  /* z-index: -1; */
   padding: 80px 15px;
   height: 500px;
   width: 100%;
   box-sizing: border-box;
+  z-index: 9;
 
   background-color: #bababa;
-
-  /* &:after { */
-  /* background: black; */
-  /* opacity: 0.5; */
-  /* } */
 `;
 
 export const ContentWrapper = styled.div`
@@ -73,6 +68,20 @@ export const Headline = styled.h2`
   color: #ffffff;
 `;
 
+export const HintsWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 27.91px;
+
+  .text {
+    margin-right: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    color: hsla(0, 0%, 100%, 0.7);
+  }
+`;
+
 export const SearchHints = styled.ul`
   display: flex;
   flex-direction: row;
@@ -80,7 +89,7 @@ export const SearchHints = styled.ul`
   list-style-type: none;
   flex-wrap: wrap;
 
-  li {
+  .hint {
     height: 100%;
   }
 
@@ -111,12 +120,34 @@ export const SearchHints = styled.ul`
 `;
 
 export const LinkToOthers = styled(Link)`
-  /* display: inline-block; */
   display: block;
   width: 24px;
   height: 24px;
-  margin-left: 7px;
-  margin-top: 2px;
+  margin: 2px 0 0 7px;
   border-radius: 50%;
-  background: hsla(0, 0%, 100%, 0.3);
+  background-color: hsla(0, 0%, 100%, 0.3);
+`;
+
+export const AuthorLink = styled.a`
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .text {
+    color: white;
+    opacity: 0.6;
+  }
+
+  .author {
+    color: white;
+  }
 `;

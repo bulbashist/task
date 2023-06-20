@@ -1,10 +1,6 @@
-import {
-  combineReducers,
-  configureStore,
-  getDefaultMiddleware,
-} from "@reduxjs/toolkit";
-import photoReducer from "./photos/photos";
-import filterReducer from "./photos/filters";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import photoReducer from "./photos";
+import filterReducer from "./filters";
 
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";

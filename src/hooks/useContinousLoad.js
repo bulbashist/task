@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { store } from "../store/store";
-import { loadMorePhotos } from "../store/photos/photos";
+import { loadMorePhotos } from "../store/photos";
 
 const callbackWrapper = () => {
   let allowLoad = true;
