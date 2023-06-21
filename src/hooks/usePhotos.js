@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setPhotos } from "../store/photos";
+import { useEffect } from "react";
 
 export const usePhotos = (searchQuery = " ") => {
   const lib = useSelector((state) =>
@@ -7,10 +8,12 @@ export const usePhotos = (searchQuery = " ") => {
   );
 
   const dispatch = useDispatch();
-  if (!lib || lib?.photos.length === 0) {
-    dispatch(setPhotos(searchQuery));
-    return [];
-  }
 
-  return lib.photos;
+  useEffect(() => {
+    if (!lib || lib?.photos.length === 0) {
+      dispatch(setPhotos(searchQuery));
+    }
+  }, [searchQuery, dispatch, lib]);
+
+  return lib ? lib.photos : [];
 };
