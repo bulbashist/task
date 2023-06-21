@@ -8,10 +8,13 @@ export const PhotoGrid = styled.ul`
   list-style-type: none;
 
   .column {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
     flex: 1 0 30%;
-    list-style-type: none;
+
+    .column__list {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      list-style-type: none;
+    }
   }
 `;

@@ -108,7 +108,7 @@ export const FilterPanel = () => {
               {colorOptions.map((color, i) => (
                 <li key={i}>
                   <ColorElement
-                    color={color}
+                    data-color={color}
                     onClick={() => {
                       colorInput.current.value = color;
                       dispatch(changeFilters({ color }));

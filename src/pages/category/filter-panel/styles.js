@@ -139,7 +139,7 @@ export const ColorList = styled.ul`
 `;
 
 export const ColorElement = styled.button`
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props["data-color"]};
   width: 100%;
   height: 20px;
   cursor: pointer;

@@ -9,13 +9,17 @@ export const MediaGridList = ({ photos = [] }) => {
     <PhotoGrid>
       {photos.length !== 0 ? (
         colNum.current.map((num) => (
-          <ul className="column" key={num}>
-            {photos
-              .filter((_, i) => i % 3 === num)
-              .map((photo) => (
-                <PhotoCard key={photo.id} photo={photo} />
-              ))}
-          </ul>
+          <li key={num} className="column">
+            <ul className="column__list">
+              {photos
+                .filter((_, i) => i % colNum.current.length === num)
+                .map((photo) => (
+                  <li key={photo.id}>
+                    <PhotoCard photo={photo} />
+                  </li>
+                ))}
+            </ul>
+          </li>
         ))
       ) : (
         <p>Ничего не найдено</p>
