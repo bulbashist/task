@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import defaultBckg from "../../../assets/header-background.webp";
 import SearchBar from "../../../components/search-bar";
 import {
   AuthorLink,
@@ -14,36 +13,18 @@ import {
 import { useEffect, useState } from "react";
 import hints from "../../../data/hints.json";
 import { IconMore } from "../../../assets/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { loadBackground } from "../../../store/header-background";
 
 export const Header = () => {
-  const [img, setImg] = useState(null);
+  const img = useSelector((state) => state.headerBckg);
+  const dispatch = useDispatch();
 
   const [currHints, setCurrHints] = useState([]);
 
   useEffect(() => {
-    const number = 10000000 + Math.floor(Math.random() * 1000000);
-    fetch(`https://api.pexels.com/v1/photos/${number}`, {
-      headers: {
-        Authorization:
-          "563492ad6f917000010000014640aabb4e9d420cbe1c0df7daf4c2bf",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) =>
-        setImg({
-          src: res.src.original,
-          author: res.photographer,
-          link: res.photographer_url,
-        })
-      )
-      .catch(() =>
-        setImg({
-          src: defaultBckg,
-          author: "Irina Iriser",
-          link: "https://www.pexels.com/@emine-sevval-587670081",
-        })
-      );
-  }, []);
+    dispatch(loadBackground());
+  }, [dispatch]);
 
   useEffect(() => {
     const temp = new Set();

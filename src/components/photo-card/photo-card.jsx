@@ -18,6 +18,7 @@ import {
   IconHeartLiked,
 } from "../../assets/icons";
 import avatar from "../../assets/avatar.png";
+import { download } from "../../store/photos/thunks";
 
 export const PhotoCard = ({ photo }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -66,19 +67,7 @@ export const PhotoCard = ({ photo }) => {
             <img src={avatar} alt="" className="avatar" />
             <span className="name">{photo.photographer}</span>
           </a>
-          <ActionButton
-            onClick={() => {
-              fetch(photo.src.original)
-                .then((res) => res.blob())
-                .then((blob) => {
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a");
-                  a.href = url;
-                  a.download = photo.id;
-                  a.click();
-                });
-            }}
-          >
+          <ActionButton onClick={() => dispatch(download(photo.src.original))}>
             <IconDownload />
           </ActionButton>
         </LowerPanel>

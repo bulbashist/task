@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { loadMorePhotos, setPhotos } from "./thunks";
+import { download, loadMorePhotos, setPhotos } from "./thunks";
 
 const slice = createSlice({
   name: "photos",
@@ -62,6 +62,13 @@ const slice = createSlice({
             return action.payload;
           } else return lib;
         });
+      })
+      .addCase(download.fulfilled, (_, action) => {
+        const url = URL.createObjectURL(action.payload);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "image";
+        a.click();
       }),
 });
 

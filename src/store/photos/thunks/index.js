@@ -1,4 +1,5 @@
 import { loadMorePhotos } from "./thunk-load-more";
 import { setPhotos } from "./thunk-set";
+import { download } from "./thunk-download";
 
-export { loadMorePhotos, setPhotos };
+export { download, loadMorePhotos, setPhotos };
