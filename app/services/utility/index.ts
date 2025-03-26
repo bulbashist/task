@@ -1,5 +1,9 @@
 export const convert = (num: number) => {
-  if (num < 0.01) return num.toFixed(5);
+  if (num < 0.01) {
+    const pow = Math.floor(Math.abs(Math.log10(num)));
+    if (pow > 10) return num.toString();
+    return num.toFixed(pow + 2);
+  }
 
   const exts = ["", "тыс.", "млн.", "млрд.", "трлн."];
   let ext = 0;

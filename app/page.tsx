@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { KeyboardEvent, useState } from "react";
 import styles from "./page.module.css";
 import { TableComponent } from "./components/table";
-// import { useAuthWall } from "./hooks/useAuthWall";
+import { useAuthWall } from "./hooks/useAuthWall";
 
 const MainPage = () => {
   const router = useRouter();
-  // const authWall = useAuthWall(router);
+  const authWall = useAuthWall(router);
 
   const [input, setInput] = useState("");
 
@@ -22,7 +21,7 @@ const MainPage = () => {
     router.push("/login");
   };
 
-  // if (authWall) return;
+  if (authWall) return;
 
   return (
     <div className={styles.page}>
