@@ -1,19 +1,15 @@
-import { User } from "@/types/user";
+import { RepoUser, User } from "@/types/user";
+import bcrypt from "bcryptjs";
 
 class UserRepository {
-  users: Array<User>;
+  users: Array<RepoUser>;
 
   constructor() {
     console.log("constructor");
-    this.users = [
-      {
-        login: "admin123",
-        password: "admin123",
-      },
-    ];
+    this.users = [];
   }
 
-  add(data: User) {
+  add(data: RepoUser) {
     this.users.push(data);
   }
 
@@ -24,7 +20,9 @@ class UserRepository {
   has(data: User) {
     console.log(this.users);
     return this.users.some(
-      (user) => user.login === data.login && user.password === data.password
+      (user) =>
+        user.login === data.login &&
+        bcrypt.compareSync(data.password, user.salt)
     );
   }
 }

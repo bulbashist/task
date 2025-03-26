@@ -1,6 +1,6 @@
 import { usersRepo } from "@/app/data/users";
 import { User, UserSchema } from "@/types/user";
-// import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
@@ -8,8 +8,9 @@ export class AuthService {
   static async signIn(data: User) {
     const user = usersRepo.find(data.login);
     if (user) throw Error("Данный логин занят");
-    // const hash = await bcrypt.hash(data.password, 10);
-    usersRepo.add(data);
+    const salt = await bcrypt.genSalt();
+    const hash = await bcrypt.hash(data.password, salt);
+    usersRepo.add({ login: data.login, password: hash, salt });
     return true;
   }
 
@@ -26,7 +27,7 @@ export class AuthService {
         { status: 401 }
       );
 
-    const token = jwt.sign({ login: data.login }, "key", {
+    const token = jwt.sign({ login: data.login }, process.env.JWT_KEY!, {
       expiresIn: 60 * 15,
     });
 
