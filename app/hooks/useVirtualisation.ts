@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
-const useVisualization = (rowSize: number) => {
+/*
+ Возможно, через requestanimationframe лучше, но я не понял доводов почему из статьи 
+*/
+
+const useVirtualization = (rowSize: number) => {
   const [topCount, setTopCount] = useState(0);
   const [bottomCount, setBottomCount] = useState(100);
 
@@ -21,4 +25,4 @@ const useVisualization = (rowSize: number) => {
   return [topCount, bottomCount, rowSize];
 };
 
-export { useVisualization };
+export { useVirtualization };

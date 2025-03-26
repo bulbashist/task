@@ -1,16 +1,15 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import styles from "./page.module.css";
+import { User } from "@/types/user";
+import { useState } from "react";
+import Link from "next/link";
 import axios from "axios";
-import { useRouter } from "next/navigation";
-
-type User = {
-  login: string;
-  password: string;
-};
 
 const LoginPage = () => {
   const router = useRouter();
+  const [error, setError] = useState("");
 
   const {
     handleSubmit,
@@ -19,14 +18,18 @@ const LoginPage = () => {
   } = useForm<User>();
 
   const onSubmit = (user: User) => {
-    axios.post("/api/auth/register", { user }).then(() => {
-      router.push("/login");
-    });
+    axios
+      .post("/api/auth/register", { user })
+      .then(() => {
+        router.push("/login");
+      })
+      .catch((err) => setError(err.response.data.message));
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <h2 className={styles.headline}>Создать аккаунт</h2>
         <div className={styles.block}>
           <label htmlFor="login">Логин</label>
           <input
@@ -58,13 +61,17 @@ const LoginPage = () => {
           />
           <p className={styles.error}>{errors.password?.message}</p>
         </div>
-        <button
-          type="submit"
-          disabled={isSubmitted && !(isDirty && isValid)}
-          className={styles.button}
-        >
-          Войти
-        </button>
+        <p className={styles.serverError}>{error}</p>
+        <div className={styles.formBottom}>
+          <Link href="/login">Уже есть аккаунт?</Link>
+          <button
+            type="submit"
+            disabled={isSubmitted && !(isDirty && isValid)}
+            className={styles.button}
+          >
+            Создать
+          </button>
+        </div>
       </form>
     </div>
   );

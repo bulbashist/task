@@ -1,4 +1,3 @@
-import { Bar } from "@/types/history";
 import {
   Area,
   AreaChart,
@@ -9,6 +8,7 @@ import {
   YAxis,
 } from "recharts";
 import styles from "./style.module.css";
+import { Bar } from "@/types/history";
 
 type Props = {
   data: PromiseSettledResult<Bar[]>;

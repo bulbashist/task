@@ -11,7 +11,6 @@ export class AuthService {
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(data.password, salt);
     usersRepo.add({ login: data.login, password: hash });
-    return true;
   }
 
   static async logIn(data: User) {

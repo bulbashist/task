@@ -8,7 +8,7 @@ import { MouseEvent, useState } from "react";
 import styles from "./style.module.css";
 import { useSearchParams } from "next/navigation";
 import { AxiosError } from "axios";
-import { useVisualization } from "@/app/hooks/useVisualisation";
+import { useVirtualization } from "@/app/hooks/useVirtualisation";
 
 type SortOption = {
   field: keyof Coin;
@@ -44,7 +44,7 @@ export const TableComponent = () => {
     queryFn: ({ pageParam }) => coinApi.getMany(pageParam, search),
     initialPageParam: 0,
     getNextPageParam: (data, _, page) => (data.length > 0 ? ++page : null),
-    // refetchInterval: 10 * 1000,
+    refetchInterval: 10 * 1000,
   });
 
   const [sortOption, setSortOption] = useState<SortOption>({
@@ -55,7 +55,7 @@ export const TableComponent = () => {
   const observableRef = useObserver(fetchNextPage);
 
   //rowHeight = 39
-  const [top, bottom, rowHeight] = useVisualization(39);
+  const [top, bottom, rowHeight] = useVirtualization(39);
 
   const onClickTh = (e: MouseEvent<HTMLTableRowElement>) => {
     const field = (e.target as HTMLTableCellElement).dataset.name as keyof Coin;
@@ -78,8 +78,6 @@ export const TableComponent = () => {
   if (!data) {
     return;
   }
-
-  // if (authWall) return;
 
   const records = data.pages.reduce((prev, curr) => prev.concat(curr), []);
   records.sort((a, b) => {
@@ -107,6 +105,7 @@ export const TableComponent = () => {
         <tbody>
           <tr style={{ height: Math.max(top * rowHeight, 0) }}></tr>
           {records.map((item, index) => {
+            // не уверен, что копия через slice лучше
             if (index < top || index > bottom) return;
 
             return (
