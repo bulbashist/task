@@ -36,7 +36,9 @@ export class AuthService {
 
   static async verify(token: string) {
     try {
-      const { login } = jwt.verify(token, "key") as { login: string };
+      const { login } = jwt.verify(token, process.env.JWT_KEY!) as {
+        login: string;
+      };
       if (usersRepo.find(login)) return true;
       return false;
     } catch {
