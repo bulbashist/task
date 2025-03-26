@@ -10,7 +10,7 @@ export class AuthService {
     if (user) throw Error("Данный логин занят");
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(data.password, salt);
-    usersRepo.add({ login: data.login, password: hash, salt });
+    usersRepo.add({ login: data.login, password: hash });
     return true;
   }
 
