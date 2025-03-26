@@ -1,0 +1,9 @@
+.table {
+  width: 100%;
+
+  tbody {
+    .row {
+      content-visibility: auto;
+    }
+  }
+}

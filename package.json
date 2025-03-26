@@ -1,0 +1,36 @@
+{
+  "name": "ntec",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.69.0",
+    "@types/jsonwebtoken": "^9.0.9",
+    "axios": "^1.8.4",
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "next": "15.2.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
+    "react-paginate": "^8.3.0",
+    "react-virtualized": "^9.22.6",
+    "recharts": "^2.15.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-virtualized": "^9.22.2",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.3",
+    "typescript": "^5"
+  }
+}
