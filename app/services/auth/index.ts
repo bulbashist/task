@@ -1,6 +1,6 @@
 import { usersRepo } from "@/app/data/users";
 import { User, UserSchema } from "@/types/user";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 

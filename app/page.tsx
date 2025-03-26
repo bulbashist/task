@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { KeyboardEvent, useState } from "react";
 import styles from "./page.module.css";
 import { TableComponent } from "./components/table";
-import { useAuthWall } from "./hooks/useAuthWall";
+// import { useAuthWall } from "./hooks/useAuthWall";
 
 const MainPage = () => {
   const router = useRouter();
