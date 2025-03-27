@@ -1,5 +1,5 @@
 export const convert = (num: number) => {
-  if (num < 0.01) {
+  if (num < 1) {
     const pow = Math.floor(Math.abs(Math.log10(num)));
     if (pow > 10) return num.toString();
     return num.toFixed(pow + 2);
@@ -14,4 +14,14 @@ export const convert = (num: number) => {
     temp = num / 1000;
   }
   return num.toFixed(2) + exts[ext];
+};
+
+export const graphConvert = (num: number, add = 0) => {
+  if (num < 10) {
+    const pow = Math.floor(Math.abs(Math.log10(num)));
+    if (pow > 10) return num.toString();
+    return (num + add * 10 ** (-pow - 2)).toFixed(pow + 2);
+  }
+
+  return add > 0 ? Math.ceil(num) : Math.floor(num);
 };

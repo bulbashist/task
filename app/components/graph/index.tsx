@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import styles from "./style.module.css";
 import { Bar } from "@/types/history";
+import { convert, graphConvert } from "@/app/services/utility";
 
 type Props = {
   data: PromiseSettledResult<Bar[]>;
@@ -27,16 +28,16 @@ const GraphComponent = ({ data }: Props) => {
   return (
     <section className={styles.wrapper}>
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={graphData}>
+        <AreaChart data={graphData} {...{ overflow: "visible" }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis
             domain={[
-              (dataMin: number) => Math.floor(dataMin),
-              (dataMax: number) => Math.ceil(dataMax),
+              (dataMin: number) => graphConvert(dataMin, -1),
+              (dataMax: number) => graphConvert(dataMax, 1),
             ]}
           />
-          <Tooltip formatter={(v) => (+v).toFixed(2)} />
+          <Tooltip formatter={(v) => convert(+v)} />
           <Area
             type="monotone"
             dataKey="priceUsd"

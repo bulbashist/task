@@ -38,10 +38,7 @@ const MainPage = () => {
               <Link href={`/?search=${input}`}>🔍</Link>
             </button>
           </div>
-          <button
-            style={{ border: "2px solid blue", borderRadius: 15, padding: 10 }}
-            onClick={logout}
-          >
+          <button className={styles.logout} onClick={logout}>
             Выход
           </button>
         </header>
