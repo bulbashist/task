@@ -1,7 +1,7 @@
 import { Coin, CoinSchema } from "@/types/coin";
 import { BarSchema } from "@/types/history";
-import axios from "axios";
 import { Bar } from "recharts";
+import axios from "axios";
 
 class CoinApi {
   private limit = 35;

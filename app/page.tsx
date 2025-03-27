@@ -1,10 +1,10 @@
 "use client";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { KeyboardEvent, useState } from "react";
-import styles from "./page.module.css";
 import { TableComponent } from "./components/table";
 import { useAuthWall } from "./hooks/useAuthWall";
+import { KeyboardEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import styles from "./page.module.css";
+import Link from "next/link";
 
 const MainPage = () => {
   const router = useRouter();
