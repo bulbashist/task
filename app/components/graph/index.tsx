@@ -9,7 +9,7 @@ import {
 } from "recharts";
 import styles from "./style.module.css";
 import { Bar } from "@/types/history";
-import { convert, graphConvert } from "@/app/services/utility";
+import { convertToFixed, graphConvertToFixed } from "@/app/services/utility";
 
 type Props = {
   data: PromiseSettledResult<Bar[]>;
@@ -33,11 +33,11 @@ const GraphComponent = ({ data }: Props) => {
           <XAxis dataKey="date" />
           <YAxis
             domain={[
-              (dataMin: number) => graphConvert(dataMin, -1),
-              (dataMax: number) => graphConvert(dataMax, 1),
+              (dataMin: number) => graphConvertToFixed(dataMin, -1),
+              (dataMax: number) => graphConvertToFixed(dataMax, 1),
             ]}
           />
-          <Tooltip formatter={(v) => convert(+v)} />
+          <Tooltip formatter={(v) => convertToFixed(+v)} />
           <Area
             type="monotone"
             dataKey="priceUsd"

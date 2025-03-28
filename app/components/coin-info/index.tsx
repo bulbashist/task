@@ -1,4 +1,4 @@
-import { convert } from "@/app/services/utility";
+import { convertToFixed } from "@/app/services/utility";
 import { Coin } from "@/types/coin";
 import styles from "./style.module.css";
 
@@ -27,28 +27,28 @@ const MainInfoComponent = ({ data }: Props) => {
                 {data.value.name} ({data.value.symbol})
               </span>
             </h1>
-            <h3>${convert(data.value.priceUsd)}</h3>
+            <h3>${convertToFixed(data.value.priceUsd)}</h3>
             <h3
               style={{
                 color: data.value.changePercent24Hr > 0 ? "greenyellow" : "red",
               }}
             >
-              {convert(data.value.changePercent24Hr)}%
+              {convertToFixed(data.value.changePercent24Hr)}%
             </h3>
           </div>
         </div>
         <div className={styles.rightBlock}>
           <div>
             <p>Капитализация</p>
-            <h3>${convert(data.value.marketCapUsd)}</h3>
+            <h3>${convertToFixed(data.value.marketCapUsd)}</h3>
           </div>
           <div>
             <p>Объем (24 часа)</p>
-            <h3>${convert(data.value.volumeUsd24Hr)}</h3>
+            <h3>${convertToFixed(data.value.volumeUsd24Hr)}</h3>
           </div>
           <div>
             <p>Количество</p>
-            <h3>{convert(data.value.supply)}</h3>
+            <h3>{convertToFixed(data.value.supply)}</h3>
           </div>
         </div>
       </div>

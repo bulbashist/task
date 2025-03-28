@@ -58,10 +58,10 @@ export default MainPage;
                   <td>
                     <Link href={`/details?id=${item.id}`}>{item.name}</Link>
                   </td>
-                  <td align="right">${convert(item.priceUsd)}</td>
-                  <td align="right">${convert(item.marketCapUsd)}</td>
-                  <td align="right">{convert(item.supply)}</td>
-                  <td align="right">${convert(item.volumeUsd24Hr)}</td>
+                  <td align="right">${convertToFixed(item.priceUsd)}</td>
+                  <td align="right">${convertToFixed(item.marketCapUsd)}</td>
+                  <td align="right">{convertToFixed(item.supply)}</td>
+                  <td align="right">${convertToFixed(item.volumeUsd24Hr)}</td>
                   <td align="right">{item.changePercent24Hr.toFixed(2)}%</td>
                 </tr>
               ));

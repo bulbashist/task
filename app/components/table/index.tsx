@@ -1,6 +1,6 @@
 import { useObserver } from "@/app/hooks/useObserver";
 import { coinApi } from "@/app/services/coin-api";
-import { convert } from "@/app/services/utility";
+import { convertToFixed } from "@/app/services/utility";
 import { Coin } from "@/types/coin";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -114,10 +114,10 @@ export const TableComponent = () => {
                 <td>
                   <Link href={`/details?id=${item.id}`}>{item.name}</Link>
                 </td>
-                <td align="right">${convert(item.priceUsd)}</td>
-                <td align="right">${convert(item.marketCapUsd)}</td>
-                <td align="right">{convert(item.supply)}</td>
-                <td align="right">${convert(item.volumeUsd24Hr)}</td>
+                <td align="right">${convertToFixed(item.priceUsd)}</td>
+                <td align="right">${convertToFixed(item.marketCapUsd)}</td>
+                <td align="right">{convertToFixed(item.supply)}</td>
+                <td align="right">${convertToFixed(item.volumeUsd24Hr)}</td>
                 <td align="center">{item.changePercent24Hr.toFixed(2)}%</td>
               </tr>
             );

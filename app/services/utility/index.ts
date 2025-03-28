@@ -1,4 +1,4 @@
-export const convert = (num: number) => {
+export const convertToFixed = (num: number) => {
   if (num < 1) {
     const pow = Math.floor(Math.abs(Math.log10(num)));
     if (pow > 10) return num.toString();
@@ -16,7 +16,7 @@ export const convert = (num: number) => {
   return num.toFixed(2) + exts[ext];
 };
 
-export const graphConvert = (num: number, add = 0) => {
+export const graphConvertToFixed = (num: number, add = 0) => {
   if (num < 10) {
     const pow = Math.floor(Math.abs(Math.log10(num)));
     if (pow > 10) return num.toString();
