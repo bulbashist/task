@@ -1,24 +1,15 @@
 import { useObserver } from "@/app/hooks/useObserver";
-import { coinApi } from "@/app/services/coin-api";
 import { convertToFixed } from "@/app/services/utility";
 import { Coin } from "@/types/coin";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { MouseEvent, useState } from "react";
 import styles from "./style.module.css";
-import { useSearchParams } from "next/navigation";
 import { AxiosError } from "axios";
 import { useVirtualization } from "@/app/hooks/useVirtualisation";
 
 type SortOption = {
   field: keyof Coin;
   asc: boolean;
-};
-
-const changeSort = (prev: SortOption, field: keyof Coin) => {
-  return prev.field === field
-    ? { field, asc: !prev.asc }
-    : { field, asc: true };
 };
 
 const headData: Array<{ field: keyof Coin; name: string }> = [
@@ -31,22 +22,19 @@ const headData: Array<{ field: keyof Coin; name: string }> = [
   { field: "changePercent24Hr", name: "Изменение цены (24 часа)" },
 ];
 
-export const TableComponent = () => {
-  const search = useSearchParams().get("search") ?? "";
-  const { isPending, data, error, fetchNextPage } = useInfiniteQuery<
-    Coin[],
-    AxiosError,
-    { pages: Array<Coin[]> },
-    unknown[],
-    number
-  >({
-    queryKey: ["main", search],
-    queryFn: ({ pageParam }) => coinApi.getMany(pageParam, search),
-    initialPageParam: 0,
-    getNextPageParam: (data, _, page) => (data.length > 0 ? ++page : null),
-    refetchInterval: 10 * 1000,
-  });
+type Props = {
+  isPending: boolean;
+  data: { pages: Array<Coin[]> } | undefined;
+  error: AxiosError | null;
+  fetchNextPage: () => void;
+};
 
+export const TableComponent = ({
+  isPending,
+  data,
+  error,
+  fetchNextPage,
+}: Props) => {
   const [sortOption, setSortOption] = useState<SortOption>({
     field: "rank",
     asc: true,
@@ -65,6 +53,12 @@ export const TableComponent = () => {
   const onClickTh = (e: MouseEvent<HTMLTableRowElement>) => {
     const field = (e.target as HTMLTableCellElement).dataset.name as keyof Coin;
     setSortOption((prev) => changeSort(prev, field));
+  };
+
+  const changeSort = (prev: SortOption, field: keyof Coin) => {
+    return prev.field === field
+      ? { field, asc: !prev.asc }
+      : { field, asc: true };
   };
 
   const isArrow = (field: keyof Coin) => {
@@ -118,9 +112,7 @@ export const TableComponent = () => {
         <tbody>
           <tr style={{ height: Math.max(top * rowHeight, 0) }}></tr>
           {records.map((item, index) => {
-            // не уверен, что копия через slice лучше
             if (index < top || index > bottom) return;
-
             return (
               <tr key={item.rank} className={styles.row}>
                 <td align="center">{item.rank}</td>

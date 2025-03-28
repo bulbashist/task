@@ -5,8 +5,10 @@ import { KeyboardEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import Link from "next/link";
+import { useCoinsQuery } from "./hooks/useCoinsQuery";
 
 const MainPage = () => {
+  const { isPending, data, error, fetchNextPage } = useCoinsQuery();
   const router = useRouter();
   const authWall = useAuthWall(router);
 
@@ -42,28 +44,15 @@ const MainPage = () => {
             Выход
           </button>
         </header>
-        <TableComponent />
+        <TableComponent
+          data={data}
+          error={error}
+          fetchNextPage={fetchNextPage}
+          isPending={isPending}
+        />
       </div>
     </div>
   );
 };
 
 export default MainPage;
-
-{
-  /* {data.pages.map((page) => {
-              return page.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.rank}</td>
-                  <td>
-                    <Link href={`/details?id=${item.id}`}>{item.name}</Link>
-                  </td>
-                  <td align="right">${convertToFixed(item.priceUsd)}</td>
-                  <td align="right">${convertToFixed(item.marketCapUsd)}</td>
-                  <td align="right">{convertToFixed(item.supply)}</td>
-                  <td align="right">${convertToFixed(item.volumeUsd24Hr)}</td>
-                  <td align="right">{item.changePercent24Hr.toFixed(2)}%</td>
-                </tr>
-              ));
-            })} */
-}
