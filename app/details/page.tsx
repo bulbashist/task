@@ -1,25 +1,16 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
-import { coinApi } from "../services/coin-api";
+import { useRouter } from "next/navigation";
 import MainInfoComponent from "../components/coin-info";
 import GraphComponent from "../components/graph";
 import Link from "next/link";
 import styles from "./page.module.css";
 import { useAuthWall } from "../hooks/useAuthWall";
+import { useDetailsQuery } from "./hooks/useDetailsQuery";
 
 const DetailsPage = () => {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id")!;
-
+  const { isPending, data } = useDetailsQuery();
   const router = useRouter();
   const authWall = useAuthWall(router);
-
-  const { isPending, data } = useQuery({
-    queryKey: ["details", id],
-    queryFn: () =>
-      Promise.allSettled([coinApi.getOne(id), coinApi.getHistory(id)]),
-  });
 
   if (isPending) {
     return <div className="loading" />;
