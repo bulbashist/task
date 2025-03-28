@@ -1,28 +1,31 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 /*
  Возможно, через requestanimationframe лучше, но я не понял доводов почему из статьи 
 */
 
-const useVirtualization = (rowSize: number) => {
+const useVirtualization = (rowHeight: number) => {
   const [topCount, setTopCount] = useState(0);
   const [bottomCount, setBottomCount] = useState(100);
 
-  useEffect(() => {
-    const callback = () => {
-      const viewport = visualViewport!;
-      setTopCount(Math.floor((viewport.pageTop - 100) / rowSize));
-      setBottomCount(
-        Math.floor((viewport.pageTop + visualViewport!.height + 500) / 39)
-      );
-    };
+  const cb = useCallback(
+    (ref: HTMLDivElement) => {
+      const t = () => {
+        const top = Math.floor((ref.scrollTop - 100) / rowHeight);
+        const bottom = Math.floor(
+          (ref.scrollTop + visualViewport!.height + 500) / rowHeight
+        );
+        setTopCount((prev) => (Math.abs(top - prev) > 1 ? top : prev));
+        setBottomCount((prev) => (Math.abs(bottom - prev) > 1 ? bottom : prev));
+      };
 
-    document.addEventListener("scroll", callback);
+      ref?.addEventListener("scroll", t);
+      return () => ref?.removeEventListener("scroll", t);
+    },
+    [rowHeight]
+  );
 
-    return () => document.removeEventListener("scroll", callback);
-  }, [rowSize]);
-
-  return [topCount, bottomCount, rowSize];
+  return { topCount, bottomCount, rowHeight, ref: cb };
 };
 
 export { useVirtualization };

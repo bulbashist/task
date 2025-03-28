@@ -3,7 +3,7 @@ import { useCallback, useRef } from "react";
 const useObserver = (callback: () => void) => {
   const observer = useRef<IntersectionObserver>(null);
   const observe = useCallback(
-    (elem: HTMLDivElement) => {
+    (elem: HTMLTableRowElement) => {
       if (!observer.current) {
         observer.current = new IntersectionObserver((entries) => {
           if (entries[0].isIntersecting) {

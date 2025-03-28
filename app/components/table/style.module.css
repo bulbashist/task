@@ -1,10 +1,14 @@
 .table {
   width: 100%;
-  /* background-color: inherit; */
+  table-layout: fixed;
 
   & > tbody {
     & > .row {
       content-visibility: auto;
+
+      & > td {
+        height: 39px;
+      }
     }
   }
 }

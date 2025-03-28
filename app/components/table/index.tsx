@@ -55,7 +55,12 @@ export const TableComponent = () => {
   const observableRef = useObserver(fetchNextPage);
 
   //rowHeight = 39
-  const [top, bottom, rowHeight] = useVirtualization(39);
+  const {
+    topCount: top,
+    bottomCount: bottom,
+    rowHeight,
+    ref,
+  } = useVirtualization(39);
 
   const onClickTh = (e: MouseEvent<HTMLTableRowElement>) => {
     const field = (e.target as HTMLTableCellElement).dataset.name as keyof Coin;
@@ -91,10 +96,18 @@ export const TableComponent = () => {
   }
 
   return (
-    <>
+    <div style={{ overflow: "auto" }} ref={ref}>
       <table className={styles.table}>
         <thead>
-          <tr onClick={onClickTh}>
+          <tr
+            style={{
+              position: "sticky",
+              top: 0,
+              zIndex: 2,
+              backgroundColor: "white",
+            }}
+            onClick={onClickTh}
+          >
             {headData.map((column, i) => (
               <th key={i} data-name={column.field}>
                 {column.name} {isArrow(column.field)}
@@ -122,9 +135,9 @@ export const TableComponent = () => {
               </tr>
             );
           })}
+          <tr ref={observableRef} />
         </tbody>
       </table>
-      <div ref={observableRef} />
-    </>
+    </div>
   );
 };
