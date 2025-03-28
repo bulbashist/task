@@ -2,12 +2,12 @@ import { useObserver } from "@/app/hooks/useObserver";
 import { convertToFixed } from "@/app/services/utility";
 import { Coin } from "@/types/coin";
 import Link from "next/link";
-import { MouseEvent, useState } from "react";
+import { Dispatch, MouseEvent, SetStateAction } from "react";
 import styles from "./style.module.css";
 import { AxiosError } from "axios";
 import { useVirtualization } from "@/app/hooks/useVirtualisation";
 
-type SortOption = {
+export type SortOption = {
   field: keyof Coin;
   asc: boolean;
 };
@@ -24,9 +24,11 @@ const headData: Array<{ field: keyof Coin; name: string }> = [
 
 type Props = {
   isPending: boolean;
-  data: { pages: Array<Coin[]> } | undefined;
+  data: Array<Coin> | undefined;
   error: AxiosError | null;
   fetchNextPage: () => void;
+  sortOption: SortOption | null;
+  setSortOption: Dispatch<SetStateAction<SortOption | null>>;
 };
 
 export const TableComponent = ({
@@ -34,14 +36,10 @@ export const TableComponent = ({
   data,
   error,
   fetchNextPage,
+  sortOption,
+  setSortOption,
 }: Props) => {
-  const [sortOption, setSortOption] = useState<SortOption>({
-    field: "rank",
-    asc: true,
-  });
-
   const observableRef = useObserver(fetchNextPage);
-
   //rowHeight = 39
   const {
     topCount: top,
@@ -55,14 +53,14 @@ export const TableComponent = ({
     setSortOption((prev) => changeSort(prev, field));
   };
 
-  const changeSort = (prev: SortOption, field: keyof Coin) => {
-    return prev.field === field
+  const changeSort = (prev: SortOption | null, field: keyof Coin) => {
+    return prev?.field === field
       ? { field, asc: !prev.asc }
       : { field, asc: true };
   };
 
   const isArrow = (field: keyof Coin) => {
-    if (sortOption.field !== field) return;
+    if (sortOption?.field !== field) return;
     return sortOption.asc ? "↑" : "↓";
   };
 
@@ -74,18 +72,17 @@ export const TableComponent = ({
     return <h2 style={{ margin: 50 }}>Ошибка</h2>;
   }
 
-  if (!data) {
-    return;
+  if (!data) return;
+
+  if (sortOption) {
+    data.sort((a, b) => {
+      if (sortOption.asc) {
+        return a[sortOption.field] > b[sortOption.field] ? 1 : -1;
+      } else return a[sortOption.field] < b[sortOption.field] ? 1 : -1;
+    });
   }
 
-  const records = data.pages.reduce((prev, curr) => prev.concat(curr), []);
-  records.sort((a, b) => {
-    if (sortOption.asc) {
-      return a[sortOption.field] > b[sortOption.field] ? 1 : -1;
-    } else return a[sortOption.field] < b[sortOption.field] ? 1 : -1;
-  });
-
-  if (records.length === 0) {
+  if (data.length === 0) {
     return <h2 style={{ margin: 50 }}>Не найдено</h2>;
   }
 
@@ -111,7 +108,7 @@ export const TableComponent = ({
         </thead>
         <tbody>
           <tr style={{ height: Math.max(top * rowHeight, 0) }}></tr>
-          {records.map((item, index) => {
+          {data.map((item, index) => {
             if (index < top || index > bottom) return;
             return (
               <tr key={item.rank} className={styles.row}>

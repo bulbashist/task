@@ -1,5 +1,5 @@
 "use client";
-import { TableComponent } from "./components/table";
+import { SortOption, TableComponent } from "./components/table";
 import { useAuthWall } from "./hooks/useAuthWall";
 import { KeyboardEvent, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -13,6 +13,7 @@ const MainPage = () => {
   const authWall = useAuthWall(router);
 
   const [input, setInput] = useState("");
+  const [sortOption, setSortOption] = useState<SortOption | null>(null);
 
   const onEnterInput = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") router.push(`/?search=${e.currentTarget.value}`);
@@ -24,6 +25,8 @@ const MainPage = () => {
   };
 
   if (authWall) return;
+
+  const records = data?.pages.reduce((prev, curr) => prev.concat(curr), []);
 
   return (
     <div className={styles.page}>
@@ -45,10 +48,12 @@ const MainPage = () => {
           </button>
         </header>
         <TableComponent
-          data={data}
+          data={records}
           error={error}
           fetchNextPage={fetchNextPage}
           isPending={isPending}
+          sortOption={sortOption}
+          setSortOption={setSortOption}
         />
       </div>
     </div>
