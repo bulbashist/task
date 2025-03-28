@@ -3,13 +3,27 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import styles from "./page.module.css";
 import { User } from "@/types/user";
-import { useState } from "react";
 import Link from "next/link";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 const LoginPage = () => {
   const router = useRouter();
-  const [error, setError] = useState("");
+
+  const { error, mutate } = useMutation<
+    AxiosResponse,
+    AxiosError<{ message: string }>,
+    User
+  >({
+    mutationFn: (user) => {
+      return axios.post("/api/auth/login", { user });
+    },
+
+    onSuccess: (res) => {
+      localStorage.setItem("token", res.data);
+      router.push("/");
+    },
+  });
 
   const {
     handleSubmit,
@@ -17,19 +31,12 @@ const LoginPage = () => {
     formState: { errors, isDirty, isValid, isSubmitted },
   } = useForm<User>();
 
-  const onSubmit = (user: User) => {
-    axios
-      .post("/api/auth/login", { user })
-      .then((res) => {
-        localStorage.setItem("token", res.data);
-        router.push("/");
-      })
-      .catch((err) => setError(err.response.data.message));
-  };
-
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <form
+        onSubmit={handleSubmit((user) => mutate(user))}
+        className={styles.form}
+      >
         <h2 className={styles.headline}>Войти в аккаунт</h2>
         <div className={styles.block}>
           <label htmlFor="login">Логин</label>
@@ -62,7 +69,7 @@ const LoginPage = () => {
           />
           <p className={styles.error}>{errors.password?.message}</p>
         </div>
-        <p className={styles.serverError}>{error}</p>
+        <p className={styles.serverError}>{error?.response?.data.message}</p>
         <div className={styles.formBottom}>
           <Link href="/register">Нету аккаунта?</Link>
           <button
