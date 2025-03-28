@@ -22,26 +22,6 @@
   gap: 5px;
 }
 
-.input {
-  height: 30px;
-  border: 2px solid black;
-  padding-left: 5px;
-}
-
-.error {
-  height: 20px;
-  color: rgb(188, 63, 63);
-  font-size: 10px;
-}
-
-.serverError {
-  flex-grow: 1;
-  height: 20px;
-  color: rgb(188, 63, 63);
-  font-size: 10px;
-  text-align: center;
-}
-
 .formBottom {
   display: flex;
   flex-direction: row;
